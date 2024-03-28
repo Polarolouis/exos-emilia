@@ -1,0 +1,11 @@
+```{r, echo = TRUE, include = TRUE}
+source("generate-system.R")
+knitr::opts_chunk()
+```
+
+```{r, echo = FALSE, results='asis'}
+set.seed(123)
+M <- generate_invertible_matrix(4)
+b <- c(1, 2, 3, 4)
+cat(system_expr(M, b))
+```
