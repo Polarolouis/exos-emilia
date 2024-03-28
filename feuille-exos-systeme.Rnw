@@ -1,7 +1,8 @@
 \documentclass[a4paper]{article}
 
-\usepackage{xltxtra}
-\usepackage{polyglossia}
+% % \usepackage{fontspec}
+% \usepackage{polyglossia}
+\usepackage[french]{babel}
 \usepackage{fancyhdr}
 \usepackage{geometry}
 
@@ -12,38 +13,225 @@
 \pagestyle{fancy}
 \chead{Feuille d'exercices systèmes et matrices}
 \rhead{\today}
-\cfoot{\thepage}
+% \cfoot{\thepage}
 
 \setlength{\headheight}{23pt}
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{0.0in}
 
+\newcommand{\R}{\mathbb{R}}
+
 \begin{document}
 
-<<'options'>>=
+<<'options', include = FALSE>>=
 source("generate-system.R")
-knitr::opts_chunk(echo = FALSE)
+set.seed(123)
 @
 
 \section*{Système}
 
 \vspace{0,75cm}
 
-\subsection*{1er système}
-<<'1er-systeme'>>=
-set.seed(123)
-M <- generate_invertible_matrix(4)
-b <- c(1, 2, 3, 4)
-cat(system_expr(M, b))
+\subsection*{Systèmes compatibles}
+
+<<'1er-systeme', echo = FALSE, result="asis">>=
+M1 <- generate_invertible_matrix(4)
+b1 <- c(1, 2, 3, 4)
+x1 <- solve(M1, b1)
 @
 
+\begin{equation}
+    \Sexpr{system_expr(M1, b1)}
+    \label{eqn:1e-systeme}
+\end{equation}
+
+Le système~\ref{eqn:2e-systeme} décrit les réactions chimiques entre 3 composés $x_1, x_2, x_3$ et le
+second membre des équations donne les quantités d'un 4e composant pour lesquels 
+un patient est considéré en bonne santé. 
+
+\noindent\begin{minipage}{.5\linewidth}
+<<'2e-systeme', echo = FALSE>>=
+M2 <- generate_invertible_matrix(3)
+x2 <- c(0.75, 0.35, 0.9)
+b2 <- M2 %*% x2
+@
+
+\begin{equation}
+    \Sexpr{system_expr(M2, b2)}
+    \label{eqn:2e-systeme}
+\end{equation}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+<<'3e-systeme', echo = FALSE>>=
+M3 <- matrix(c(2,1,5, 0, 0, 1, 7, 1, 0),byrow = TRUE, nrow = 3)
+x3 <- c(0.75, 0.35, 0.9)
+b3 <- M3 %*% x3
+@
+
+\begin{equation}
+    \Sexpr{system_expr(M3, b3)}
+    \label{eqn:3e-systeme}
+\end{equation}
+\end{minipage}
+
+Résoudre les systèmes \ref{eqn:1e-systeme}, \ref{eqn:2e-systeme}, \ref{eqn:3e-systeme} et donner les valeurs des inconnues.
+
+\subsection*{Systèmes avec inconnues secondaires}
+\begin{minipage}{0.33\linewidth}
+    
+
+<<'4e', echo = FALSE>>=
+M4 <- matrix(c(1, 3, 0,
+        0, 2, 1), byrow = TRUE, ncol = 3)
+b4 <- c(5, 2)
+@
+
+\begin{equation}
+    \Sexpr{system_expr(M4, b4)}
+    \label{eqn:4e-systeme}
+\end{equation}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+<<'5e', echo = FALSE>>=
+M5 <- matrix(sample(x = seq(0,5), size = 8, replace = TRUE), byrow = TRUE, ncol = 4)
+b5 <- sample(x = seq(0,5), size = 2, replace = TRUE)
+@
+
+\begin{equation}
+    \Sexpr{system_expr(M5, b5)}
+    \label{eqn:5e-systeme}
+\end{equation}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+<<'6e', echo = FALSE>>=
+M6 <- matrix(sample(x = seq(0,5), size = 6, replace = TRUE), byrow = TRUE, ncol = 3)
+b6 <- sample(x = seq(0,5), size = 2, replace = TRUE)
+@
+
+\begin{equation}
+    \Sexpr{system_expr(M6, b6)}
+    \label{eqn:6e-systeme}
+\end{equation}
+\end{minipage}
+
+Résoudre les systèmes \ref{eqn:4e-systeme}, \ref{eqn:5e-systeme}, \ref{eqn:6e-systeme} puis :
+\begin{enumerate}
+    \item Exprimer les ensembles de solutions sous la forme $S = \{(x, y, z) , z \in \R\}$ 
+    (En remplaçant les inconnues par la fonction de l'inconnue secondaire correspondante)
+    \item Exprimer maintenant les ensembles de solutions sous la forme d'équation de droites ou de plans.\\
+    $S = \{ \vec{a} + \vec{b} z \}$ par exemple, où $\vec{a}$ et $\vec{b}$ sont des vecteurs (c'est-à-dire quelque chose de la forme $(1;2;3)$).
+    \item Dire si le système est une équation de droite ou bien de plan en justifiant.
+\end{enumerate}
+
+Exemple résolu pour le système \ref{eqn:4e-systeme} :
+\begin{enumerate}
+    \item $S_4 = \{(2 + \frac{3}{2}z, 1 - \frac{1}{2} z, z), z\in\R\}$
+    \item $S_4^* = \{(2, 1, 0) + (\frac{3}{2},  - \frac{1}{2} , 1)z, z\in\R\}$
+
+\end{enumerate}
+
+\section*{Matrices}
+
+\subsection*{Pour s'échauffer}
+
+<<'matrices', echo = FALSE>>=
+A <- matrix(sample(seq(0,9), size = 4, replace = TRUE), byrow = TRUE, nrow = 2)
+B <- matrix(sample(seq(0,9), size = 6, replace = TRUE), byrow = TRUE, nrow = 2)
+C <- matrix(sample(seq(0,9), size = 9, replace = TRUE), byrow = TRUE, ncol = 3)
+@
+
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        A = \Sexpr{A}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        B = \Sexpr{B}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        C = \Sexpr{C}
+    \end{equation*}
+\end{minipage}
+
+\begin{enumerate}
+    \item Quels sont les produits matriciels possibles en combinant une seule 
+    fois $A, B, C$ ? Peut on faire plus de produits si on prend la 
+    transposée des matrices ? Si oui, calculer les nouveaux produits.
+    \item Faire ces produits.
+\end{enumerate}
+
+
+
+\newpage
+
+\section*{Correction de la section Système}
+Si après avoir re-vérifié tes calculs tu ne trouves pas le même résultat que moi
+il est possible que je me sois trompé. Contacte-moi si besoin.
+
 \vspace{0,75cm}
 
-\subsection*{Exercise 2}
-Text
+\subsection*{Systèmes compatibles}
 
-\vspace{0,75cm}
+Pour résoudre les systèmes on applique le pivot et on obtient :
+\begin{itemize}
+    \item Pour le système \ref{eqn:1e-systeme} : $(\Sexpr{x1})$
+    \item Pour le système \ref{eqn:2e-systeme} : $(\Sexpr{x2})$
+    \item Pour le système \ref{eqn:3e-systeme} : $(\Sexpr{x3})$
+\end{itemize}
 
-\subsection*{Exercise 3}
-Text
+\subsection*{Systèmes avec inconnues secondaires}
+Le système \ref{eqn:4e-systeme} est résolu simplement et les écritures des 
+ensembles de solutions sont fournies.\\
+
+Le système \ref{eqn:5e-systeme} :
+\begin{enumerate}
+    \item $S_5 = \{(2 - x_3 - 5 x_4, -4 + x_3 + 10 x_4, x_3, x_4), x_3\in\R, x_4 \in \R \}$
+    \item $S_5^* = \{(2, -4, 0, 0) + (-1, 1, 1, 0) x_3 + (-5, 10, 0, 1) x_4, x_3\in\R, x_4 \in \R \}$
+    \item Il y a 2 inconnues secondaires $x_3$ et $x_4$, il s'agit donc d'une équation de plan dans $\R^4$.
+\end{enumerate}
+
+Le système \ref{eqn:6e-systeme} :
+\begin{enumerate}
+    \item $S_6 = \{(\frac{1}{2}, -\frac{1}{3} -\frac{1}{3} x_3, x_3), x_3\in\R\}$
+    \item $S_6^* = \{(\frac{1}{2}, - \frac{1}{3}, 0) + (0, -\frac{1}{3}, 1) x_3, x_3\in\R\}$
+    \item Il y a 1 inconnue secondaire $x_3$, il s'agit donc d'une équation de droite dans $\R^3$ (le volume, c'est-à-dire à 3 dimensions $(x,y,z)$).
+\end{enumerate}
+
+\section*{Matrices}
+
+\subsection*{Pour s'échauffer}
+
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        A = \Sexpr{A}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        B = \Sexpr{B}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        C = \Sexpr{C}
+    \end{equation*}
+\end{minipage}
+
+\begin{enumerate}
+    \item Pour savoir quels produits sont possibles il faut regarder si le 
+    nombre de colonnes de la première matrice correspond au nombre de lignes 
+    de la seconde. \\
+    $AB$ est possible, $A$ a 2 colonnes et $B$ 2 lignes. Mais $BA$ lui n'est 
+    pas possible !
+    En prenant la transposée de $B$, $B^T = \Sexpr{t(B)}$, on peut alors faire 
+    le calcul $B^TA$.
+    \begin{align*}
+        AB &= \Sexpr{A%*%B} & B^TA = \Sexpr{t(B)%*%A}, &  A^TB = \Sexpr{t(A)%*%B} & B^T A^T = \Sexpr{t(B)%*%t(A)}  \\ 
+        BC &= \Sexpr{B%*%C} & CB^T = \Sexpr{C%*%t(B)}, & C^TB^T = \Sexpr{t(C)%*%t(B)}, &\\
+    \end{align*}
+\end{enumerate}
+
 \end{document}

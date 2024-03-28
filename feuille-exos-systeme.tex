@@ -50,8 +50,9 @@
 
 \usepackage{alltt}
 
-\usepackage{xltxtra}
-\usepackage{polyglossia}
+% % \usepackage{fontspec}
+% \usepackage{polyglossia}
+\usepackage[french]{babel}
 \usepackage{fancyhdr}
 \usepackage{geometry}
 
@@ -62,51 +63,196 @@
 \pagestyle{fancy}
 \chead{Feuille d'exercices systèmes et matrices}
 \rhead{\today}
-\cfoot{\thepage}
+% \cfoot{\thepage}
 
 \setlength{\headheight}{23pt}
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{0.0in}
+
+\newcommand{\R}{\mathbb{R}}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{source}\hlstd{(}\hlstr{"generate-system.R"}\hlstd{)}
-\hlstd{knitr}\hlopt{::}\hlkwd{opts_chunk}\hlstd{(}\hlkwc{echo} \hlstd{=} \hlnum{FALSE}\hlstd{)}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): tentative d'appliquer un objet qui n'est pas une fonction}}\end{kframe}
-\end{knitrout}
 
 \section*{Système}
 
 \vspace{0,75cm}
 
-\subsection*{1er système}
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{set.seed}\hlstd{(}\hlnum{123}\hlstd{)}
-\hlstd{M} \hlkwb{<-} \hlkwd{generate_invertible_matrix}\hlstd{(}\hlnum{4}\hlstd{)}
-\hlstd{b} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{4}\hlstd{)}
-\hlkwd{cat}\hlstd{(}\hlkwd{system_expr}\hlstd{(M, b))}
-\end{alltt}
-\begin{verbatim}
-## \begin{cases} &1x_1& + &4x_2& + &2x_3& + &3x_4&  =  1 \\ &3x_1& + &2x_3& + &2x_4&  =  2 \\ &2x_1& + &2x_2& + &5x_3&  =  3 \\ &4x_1& + &4x_2& + &2x_3& + &4x_4&  =  4 \\ \end{cases}
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+\subsection*{Systèmes compatibles}
+
+
+
+\begin{equation}
+    \begin{cases} x_1 + 4x_2 + 2x_3 + 3x_4  =  1 \\ 3x_1 + 2x_3 + 2x_4  =  2 \\ 2x_1 + 2x_2 + 5x_3  =  3 \\ 4x_1 + 4x_2 + 2x_3 + 4x_4  =  4 \\ \end{cases}
+    \label{eqn:1e-systeme}
+\end{equation}
+
+Le système~\ref{eqn:2e-systeme} décrit les réactions chimiques entre 3 composés $x_1, x_2, x_3$ et le
+second membre des équations donne les quantités d'un 4e composant pour lesquels 
+un patient est considéré en bonne santé. 
+
+\noindent\begin{minipage}{.5\linewidth}
+
+
+\begin{equation}
+    \begin{cases} x_1 + 5x_2 + 2x_3  =  4.3 \\ 4x_2 + 6x_3  =  6.8 \\ x_1 + 3x_2 + 2x_3  =  3.6 \\ \end{cases}
+    \label{eqn:2e-systeme}
+\end{equation}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+
+
+\begin{equation}
+    \begin{cases} 2x_1 + x_2 + 5x_3  =  6.35 \\ x_3  =  0.9 \\ 7x_1 + x_2  =  5.6 \\ \end{cases}
+    \label{eqn:3e-systeme}
+\end{equation}
+\end{minipage}
+
+Résoudre les systèmes \ref{eqn:1e-systeme}, \ref{eqn:2e-systeme}, \ref{eqn:3e-systeme} et donner les valeurs des inconnues.
+
+\subsection*{Systèmes avec inconnues secondaires}
+\begin{minipage}{0.33\linewidth}
+    
+
+
+
+\begin{equation}
+    \begin{cases} x_1 + 3x_2  =  5 \\ 2x_2 + x_3  =  2 \\ \end{cases}
+    \label{eqn:4e-systeme}
+\end{equation}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+
+
+\begin{equation}
+    \begin{cases} 2x_1 + x_2 + x_3  =  0 \\ 5x_1 + 2x_2 + 3x_3 + 5x_4  =  2 \\ \end{cases}
+    \label{eqn:5e-systeme}
+\end{equation}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+
+
+\begin{equation}
+    \begin{cases} 4x_1 + 3x_2 + x_3  =  1 \\ 4x_1  =  2 \\ \end{cases}
+    \label{eqn:6e-systeme}
+\end{equation}
+\end{minipage}
+
+Résoudre les systèmes \ref{eqn:4e-systeme}, \ref{eqn:5e-systeme}, \ref{eqn:6e-systeme} puis :
+\begin{enumerate}
+    \item Exprimer les ensembles de solutions sous la forme $S = \{(x, y, z) , z \in \R\}$ 
+    (En remplaçant les inconnues par la fonction de l'inconnue secondaire correspondante)
+    \item Exprimer maintenant les ensembles de solutions sous la forme d'équation de droites ou de plans.\\
+    $S = \{ \vec{a} + \vec{b} z \}$ par exemple, où $\vec{a}$ et $\vec{b}$ sont des vecteurs (c'est-à-dire quelque chose de la forme $(1;2;3)$).
+    \item Dire si le système est une équation de droite ou bien de plan en justifiant.
+\end{enumerate}
+
+Exemple résolu pour le système \ref{eqn:4e-systeme} :
+\begin{enumerate}
+    \item $S_4 = \{(2 + \frac{3}{2}z, 1 - \frac{1}{2} z, z), z\in\R\}$
+    \item $S_4^* = \{(2, 1, 0) + (\frac{3}{2},  - \frac{1}{2} , 1)z, z\in\R\}$
+
+\end{enumerate}
+
+\section*{Matrices}
+
+\subsection*{Pour s'échauffer}
+
+
+
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        A = \begin{bmatrix} 4 &6 \\4 &5 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        B = \begin{bmatrix} 8 &1 &4 \\7 &1 &0 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        C = \begin{bmatrix} 8 &8 &5 \\4 &8 &9 \\3 &5 &7 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+
+\begin{enumerate}
+    \item Quels sont les produits matriciels possibles en combinant une seule 
+    fois $A, B, C$ ? Peut on faire plus de produits si on prend la 
+    transposée des matrices ? Si oui, calculer les nouveaux produits.
+    \item Faire ces produits.
+\end{enumerate}
+
+
+
+\newpage
+
+\section*{Correction de la section Système}
+Si après avoir re-vérifié tes calculs tu ne trouves pas le même résultat que moi
+il est possible que je me sois trompé. Contacte-moi si besoin.
 
 \vspace{0,75cm}
 
-\subsection*{Exercise 2}
-Text
+\subsection*{Systèmes compatibles}
 
-\vspace{0,75cm}
+Pour résoudre les systèmes on applique le pivot et on obtient :
+\begin{itemize}
+    \item Pour le système \ref{eqn:1e-systeme} : $(1.25, 0.5625, -0.125, -0.75)$
+    \item Pour le système \ref{eqn:2e-systeme} : $(0.75, 0.35, 0.9)$
+    \item Pour le système \ref{eqn:3e-systeme} : $(0.75, 0.35, 0.9)$
+\end{itemize}
 
-\subsection*{Exercise 3}
-Text
+\subsection*{Systèmes avec inconnues secondaires}
+Le système \ref{eqn:4e-systeme} est résolu simplement et les écritures des 
+ensembles de solutions sont fournies.\\
+
+Le système \ref{eqn:5e-systeme} :
+\begin{enumerate}
+    \item $S_5 = \{(2 - x_3 - 5 x_4, -4 + x_3 + 10 x_4, x_3, x_4), x_3\in\R, x_4 \in \R \}$
+    \item $S_5^* = \{(2, -4, 0, 0) + (-1, 1, 1, 0) x_3 + (-5, 10, 0, 1) x_4, x_3\in\R, x_4 \in \R \}$
+    \item Il y a 2 inconnues secondaires $x_3$ et $x_4$, il s'agit donc d'une équation de plan dans $\R^4$.
+\end{enumerate}
+
+Le système \ref{eqn:6e-systeme} :
+\begin{enumerate}
+    \item $S_6 = \{(\frac{1}{2}, -\frac{1}{3} -\frac{1}{3} x_3, x_3), x_3\in\R\}$
+    \item $S_6^* = \{(\frac{1}{2}, - \frac{1}{3}, 0) + (0, -\frac{1}{3}, 1) x_3, x_3\in\R\}$
+    \item Il y a 1 inconnue secondaire $x_3$, il s'agit donc d'une équation de droite dans $\R^3$ (le volume, c'est-à-dire à 3 dimensions $(x,y,z)$).
+\end{enumerate}
+
+\section*{Matrices}
+
+\subsection*{Pour s'échauffer}
+
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        A = \begin{bmatrix} 4 &6 \\4 &5 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        B = \begin{bmatrix} 8 &1 &4 \\7 &1 &0 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.33\linewidth}
+    \begin{equation*}
+        C = \begin{bmatrix} 8 &8 &5 \\4 &8 &9 \\3 &5 &7 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+
+\begin{enumerate}
+    \item Pour savoir quels produits sont possibles il faut regarder si le 
+    nombre de colonnes de la première matrice correspond au nombre de lignes 
+    de la seconde. \\
+    $AB$ est possible, $A$ a 2 colonnes et $B$ 2 lignes. Mais $BA$ lui n'est 
+    pas possible !
+    En prenant la transposée de $B$, $B^T = \begin{bmatrix} 8 &7 \\1 &1 \\4 &0 \\ \end{bmatrix}$, on peut alors faire 
+    le calcul $B^TA$.
+    \begin{align*}
+        AB &= \begin{bmatrix} 74 &10 &16 \\67 &9 &16 \\ \end{bmatrix} & B^TA = \begin{bmatrix} 60 &83 \\8 &11 \\16 &24 \\ \end{bmatrix}, &  A^TB = \begin{bmatrix} 60 &8 &16 \\83 &11 &24 \\ \end{bmatrix} & B^T A^T = \begin{bmatrix} 74 &67 \\10 &9 \\16 &16 \\ \end{bmatrix}  \\ 
+        BC &= \begin{bmatrix} 80 &92 &77 \\60 &64 &44 \\ \end{bmatrix} & CB^T = \begin{bmatrix} 92 &64 \\76 &36 \\57 &26 \\ \end{bmatrix}, & C^TB^T = \begin{bmatrix} 80 &60 \\92 &64 \\77 &44 \\ \end{bmatrix}, &\\
+    \end{align*}
+\end{enumerate}
+
 \end{document}
