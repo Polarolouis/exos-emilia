@@ -59,6 +59,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
+\usepackage{xcolor}
+
 \geometry{a4paper,left=15mm,right=15mm,top=20mm,bottom=20mm}
 \pagestyle{fancy}
 \chead{Feuille d'exercices systèmes et matrices}
@@ -179,11 +181,44 @@ Exemple résolu pour le système \ref{eqn:4e-systeme} :
 
 \begin{enumerate}
     \item Quels sont les produits matriciels possibles en combinant une seule 
-    fois $A, B, C$ ? Peut on faire plus de produits si on prend la 
+    fois $A, B, C$ ? 
+    \item Peut on faire plus de produits si on prend la 
     transposée des matrices ? Si oui, calculer les nouveaux produits.
     \item Faire ces produits.
 \end{enumerate}
 
+\subsection*{Matrices particulières}
+
+
+
+Voici plusieurs matrices :
+
+\begin{minipage}{0.25\linewidth}
+    \begin{equation*}
+        D = \begin{bmatrix} 5 &5 &6 \\0 &5 &1 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.25\linewidth}
+    \begin{equation*}
+        D^T = \begin{bmatrix} 5 &0 \\5 &5 \\6 &1 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.25\linewidth}
+    \begin{equation*}
+        E = \begin{bmatrix} 86 &31 \\31 &26 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.25\linewidth}
+    \begin{equation*}
+        F = \begin{bmatrix} 25 &25 &30 \\25 &50 &35 \\30 &35 &37 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+
+\begin{enumerate}
+    \item Faire le produit $DD^T$ et $D^TD$. Que remarque-t-on ?
+    \item Les matrices $E$ et $F$ ont une structure particulière, comment 
+    appelle-t-on ce type de matrice ?
+\end{enumerate}
 
 
 \newpage
@@ -196,30 +231,30 @@ il est possible que je me sois trompé. Contacte-moi si besoin.
 
 \subsection*{Systèmes compatibles}
 
-Pour résoudre les systèmes on applique le pivot et on obtient :
+\textcolor{blue}{Pour résoudre les systèmes on applique le pivot et on obtient :
 \begin{itemize}
     \item Pour le système \ref{eqn:1e-systeme} : $(1.25, 0.5625, -0.125, -0.75)$
     \item Pour le système \ref{eqn:2e-systeme} : $(0.75, 0.35, 0.9)$
     \item Pour le système \ref{eqn:3e-systeme} : $(0.75, 0.35, 0.9)$
-\end{itemize}
+\end{itemize}}
 
 \subsection*{Systèmes avec inconnues secondaires}
-Le système \ref{eqn:4e-systeme} est résolu simplement et les écritures des 
-ensembles de solutions sont fournies.\\
+\textcolor{blue}{Le système \ref{eqn:4e-systeme} est résolu simplement et les écritures des 
+ensembles de solutions sont fournies.}\\
 
-Le système \ref{eqn:5e-systeme} :
+\textcolor{blue}{Le système \ref{eqn:5e-systeme} :
 \begin{enumerate}
     \item $S_5 = \{(2 - x_3 - 5 x_4, -4 + x_3 + 10 x_4, x_3, x_4), x_3\in\R, x_4 \in \R \}$
     \item $S_5^* = \{(2, -4, 0, 0) + (-1, 1, 1, 0) x_3 + (-5, 10, 0, 1) x_4, x_3\in\R, x_4 \in \R \}$
     \item Il y a 2 inconnues secondaires $x_3$ et $x_4$, il s'agit donc d'une équation de plan dans $\R^4$.
-\end{enumerate}
+\end{enumerate}}
 
-Le système \ref{eqn:6e-systeme} :
+\textcolor{blue}{Le système \ref{eqn:6e-systeme} :
 \begin{enumerate}
     \item $S_6 = \{(\frac{1}{2}, -\frac{1}{3} -\frac{1}{3} x_3, x_3), x_3\in\R\}$
     \item $S_6^* = \{(\frac{1}{2}, - \frac{1}{3}, 0) + (0, -\frac{1}{3}, 1) x_3, x_3\in\R\}$
     \item Il y a 1 inconnue secondaire $x_3$, il s'agit donc d'une équation de droite dans $\R^3$ (le volume, c'est-à-dire à 3 dimensions $(x,y,z)$).
-\end{enumerate}
+\end{enumerate}}
 
 \section*{Matrices}
 
@@ -242,17 +277,64 @@ Le système \ref{eqn:6e-systeme} :
 \end{minipage}
 
 \begin{enumerate}
-    \item Pour savoir quels produits sont possibles il faut regarder si le 
-    nombre de colonnes de la première matrice correspond au nombre de lignes 
-    de la seconde. \\
-    $AB$ est possible, $A$ a 2 colonnes et $B$ 2 lignes. Mais $BA$ lui n'est 
-    pas possible !
-    En prenant la transposée de $B$, $B^T = \begin{bmatrix} 8 &7 \\1 &1 \\4 &0 \\ \end{bmatrix}$, on peut alors faire 
-    le calcul $B^TA$.
-    \begin{align*}
-        AB &= \begin{bmatrix} 74 &10 &16 \\67 &9 &16 \\ \end{bmatrix} & B^TA = \begin{bmatrix} 60 &83 \\8 &11 \\16 &24 \\ \end{bmatrix}, &  A^TB = \begin{bmatrix} 60 &8 &16 \\83 &11 &24 \\ \end{bmatrix} & B^T A^T = \begin{bmatrix} 74 &67 \\10 &9 \\16 &16 \\ \end{bmatrix}  \\ 
-        BC &= \begin{bmatrix} 80 &92 &77 \\60 &64 &44 \\ \end{bmatrix} & CB^T = \begin{bmatrix} 92 &64 \\76 &36 \\57 &26 \\ \end{bmatrix}, & C^TB^T = \begin{bmatrix} 80 &60 \\92 &64 \\77 &44 \\ \end{bmatrix}, &\\
-    \end{align*}
+    \item Quels sont les produits matriciels possibles en combinant une seule 
+    fois $A, B, C$ ? 
+    \item Peut on faire plus de produits si on prend la 
+    transposée des matrices ? Si oui, calculer les nouveaux produits.
+    \item Faire ces produits.
+\end{enumerate}
+
+\textcolor{blue}{Pour savoir quels produits sont possibles il faut regarder si le 
+nombre de colonnes de la première matrice correspond au nombre de lignes 
+de la seconde. \\
+$AB$ est possible, $A$ a 2 colonnes et $B$ 2 lignes. Mais $BA$ lui n'est 
+pas possible !
+En prenant la transposée de $B$, $B^T = \begin{bmatrix} 8 &7 \\1 &1 \\4 &0 \\ \end{bmatrix}$, on peut alors faire 
+le calcul $B^TA$.
+\begin{align*}
+    AB &= \begin{bmatrix} 74 &10 &16 \\67 &9 &16 \\ \end{bmatrix} & B^TA = \begin{bmatrix} 60 &83 \\8 &11 \\16 &24 \\ \end{bmatrix} \text{ } &  A^TB = \begin{bmatrix} 60 &8 &16 \\83 &11 &24 \\ \end{bmatrix} & B^T A^T = \begin{bmatrix} 74 &67 \\10 &9 \\16 &16 \\ \end{bmatrix}  \\ 
+    BC &= \begin{bmatrix} 80 &92 &77 \\60 &64 &44 \\ \end{bmatrix} & CB^T = \begin{bmatrix} 92 &64 \\76 &36 \\57 &26 \\ \end{bmatrix} \text{ } & C^TB^T = \begin{bmatrix} 80 &60 \\92 &64 \\77 &44 \\ \end{bmatrix}\\
+\end{align*}}
+
+\subsection*{Matrices particulières}
+
+Voici plusieurs matrices :
+
+\begin{minipage}{0.25\linewidth}
+    \begin{equation*}
+        D = \begin{bmatrix} 5 &5 &6 \\0 &5 &1 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.25\linewidth}
+    \begin{equation*}
+        D^T = \begin{bmatrix} 5 &0 \\5 &5 \\6 &1 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.25\linewidth}
+    \begin{equation*}
+        E = \begin{bmatrix} 86 &31 \\31 &26 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+\begin{minipage}{0.25\linewidth}
+    \begin{equation*}
+        F = \begin{bmatrix} 25 &25 &30 \\25 &50 &35 \\30 &35 &37 \\ \end{bmatrix}
+    \end{equation*}
+\end{minipage}
+
+\begin{enumerate}
+    \item Faire le produit $DD^T$ et $D^TD$. Que remarque-t-on ?
+    \textcolor{blue}{On remarque que $DD^T = E$ et $D^TD = F$.}
+    \item Les matrices $E$ et $F$ ont une structure particulière, comment 
+    appelle-t-on ce type de matrice ?
+    \textcolor{blue}{Ces matrices sont symétriques, c'est-à-dire égales à leur 
+    transposée.
+    $$E^T = \begin{bmatrix} 86 &31 \\31 &26 \\ \end{bmatrix} = E$$
+    $$F^T = \begin{bmatrix} 25 &25 &30 \\25 &50 &35 \\30 &35 &37 \\ \end{bmatrix} = F$$ 
+    On peut décomposer le calcul comme ceci grâce aux propriétés de la 
+    transposée:
+    $$E = DD^T\text{ et }E^T = (DD^T)^T = (D^T)^T D^T = DD^T$$
+    On peut faire le même calcul pour $F$. N'hésite pas à le faire pour t'en 
+    convaincre.}
 \end{enumerate}
 
 \end{document}
